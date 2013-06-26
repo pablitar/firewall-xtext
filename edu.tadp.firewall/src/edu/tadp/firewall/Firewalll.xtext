@@ -1,0 +1,25 @@
+grammar edu.tadp.firewall.Firewalll with org.eclipse.xtext.xbase.Xbase
+
+generate firewalll "http://www.tadp.edu/firewall/Firewalll"
+
+Firewall:
+	reglas+=Regla*;
+
+Regla:
+	'Si' condicion=Condicion 'hay que' accion=Accion '!';
+
+Accion:
+	{BloquearAccion}'bloquear' | {AceptarAccion}'aceptar' | {LoggearAccion}'loggear poniendo' prefijo=STRING;
+
+Condicion:
+	CondicionPuerto | CondicionIP;
+
+CondicionPuerto:
+	'el puerto es' name=INT;
+
+CondicionIP:
+	'la ip es' ip=IP;
+
+IP:
+	primero=INT '.' segundo=INT '.' tercero=INT '.' cuarto=INT;	
+
